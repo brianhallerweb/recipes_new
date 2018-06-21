@@ -6,6 +6,7 @@ class SearchResultsTitles extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: false,
       searchTerms: parse(this.props.location.search).name,
       recipes: []
     };
@@ -34,7 +35,11 @@ class SearchResultsTitles extends Component {
         return res;
       })
       .then(res => res.json())
-      .then(recipes => this.setState({ recipes }))
+      .then(recipes => {
+        let error;
+        recipes.length ? (error = false) : (error = true);
+        this.setState({ recipes, error });
+      })
       .catch(err => console.log(err));
   }
 
@@ -44,7 +49,7 @@ class SearchResultsTitles extends Component {
         {this.state.searchTerms && (
           <p>Search results for: {this.state.searchTerms}</p>
         )}
-        {!this.state.recipes.length && <p>no matching recipes found</p>}
+        {this.state.error && <p>no recipes found</p>}
         {this.state.recipes.map(recipe => (
           <RecipeTitle key={recipe._id} recipe={recipe} />
         ))}
