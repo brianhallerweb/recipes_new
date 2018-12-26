@@ -26,7 +26,7 @@ app.put("/recipes/:id", editRecipeByID);
 
 app.delete("/recipes/:id", deleteRecipeByID);
 
-app.use(express.static("public"));
+app.use(express.static("../public"));
 app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "../public/index.html"))
 );
