@@ -57,7 +57,7 @@ describe("POST /recipes", () => {
       });
   });
 
-  it("should not create todo with invalid body data", done => {
+  it("should not create recipe with invalid body data", done => {
     const recipe = {
       title: "Vanilla Ice Cream",
       category: "",
